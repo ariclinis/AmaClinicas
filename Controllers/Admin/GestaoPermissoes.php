@@ -2,7 +2,7 @@
 
 /**
  * Description of GestaoPermissoes
- * @author Mariano Tomas
+ * @author Mariano Cassinda And Ariclene Chimbili
  */
 
 include_once '../../Config/ligar_bd.php';
@@ -13,15 +13,19 @@ try {
     
 $user = filter_input(INPUT_POST, 'user_inseri');
 $visivel="Sim";
-$activo =  filter_input(INPUT_POST,'activo');
+//$activo =  filter_input(INPUT_POST,'activo');
+if(isset($_POST['activo'])){
+  $activo = $_POST['activo'];
+}
+
 $count = count($activo);
 
 for ($i=0;$i<$count;$i++){
     $p=$activo[$i];
      $permissao= $pdo->prepare("INSERT INTO tbl_acesso_modulos(`Cod_Utilizador`, `Cod_Menu`, `Visivel`) VALUES (?,?,?)");
        $permissao->execute(array(
-        $user,
-        $p,
+        intval($user),
+        intval($p),
         $visivel
         ));
 }

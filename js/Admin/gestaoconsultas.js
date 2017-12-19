@@ -255,12 +255,11 @@ function listarModulos(){
 
 function inserirPermissao(){
 $('#Atribuir_Acesso').on('click',function() {
-    
-        e.preventDefault();
+ 
 
         var user_inseri = jQuery('#user_inseri').val();
         var activo = new Array();
-$("input[name='activo[]']:checked").each(function ()
+$("input[name='activo[]']:checked").each(function()
 {
    // valores inteiros usa-se parseInt
    activo.push(parseInt($(this).val()));
@@ -276,8 +275,9 @@ $("input[name='activo[]']:checked").each(function ()
             //},
             success: function (data) {
                 if (data.toString() == 'sucesso') {
+                    console.log(activo);
                     jQuery('#msg_acesso').html('<div class="alert alert-success" role="alert"> <strong>Sucesso! </strong>Registo efetuado com sucesso.</div>').show(300).delay(5000).hide(300);
-                    jQuery('#activo[]').val("");
+                    //jQuery('#activo[]').val("");
                 } else{
                     jQuery('#msg_acesso').html('<div class="alert alert-warning" role="alert"> <strong>Problema! </strong>Ocorreu um erro ao fazer o Registo</div>').show(300).delay(5000).hide(300);
                 }

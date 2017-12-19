@@ -102,16 +102,17 @@ $dado= $Pegar_user->fetch(PDO::FETCH_ASSOC);
                                     </tbody>-->
                                     
                                     <tbody>
-                                    <center><input type="hidden" value="<?php echo $dado['id']; ?>" id="user_inseri" name="user_inseri"></center>
-                                <?php while ($dado=$Pegar_modulo->fetch(PDO::FETCH_ASSOC)) { ?>
+                                    <center>
+                                    <input type="hidden" value="<?php echo $dado['id']; ?>" id="user_inseri" name="user_inseri"></center>
+                                <?php while ($linha2=$Pegar_modulo->fetch(PDO::FETCH_ASSOC)) { ?>
                                   
                                
                                 <tr>
                                     <td>
-                                       <?php echo utf8_encode($linha['Modulo']); ?>
+                                       <?php echo utf8_encode($linha2['Modulo']); ?>
                                     </td>
                                     <td><center>
-                                    <span class="btn btn-outline btn-primary btn-sm"><input type="checkbox" value="<?php echo $linha['id']; ?>" name="activo[]" id="activo[]"></span> </center>
+                                    <span class="btn btn-outline btn-primary btn-sm"><input type="checkbox" value="<?php echo $linha2['id']; ?>" name="activo[]" id="activo[]"></span> </center>
                                     </td>
                                     <td>
                                         <a class="btn btn-outline btn-success btn-sm">Editar Registo</a>
