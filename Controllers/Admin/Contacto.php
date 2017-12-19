@@ -4,14 +4,14 @@
  */
 class Contacto {
 
-    private $sql = "INSERT INTO tbl_contactos(Telefone, Email, Fax) VALUES (?,?,?)";
-    private $cod_contacto;
+    private $sql = "INSERT INTO tbl_contactos(Telefone, Email) VALUES (?,?)";
+    private $id;
     private $Telefone;
     private $Email;
     private $Fax;
 
-    public function getCod_contacto() {
-        return $this->cod_contacto;
+    public function getId() {
+        return $this->Id;
     }
 
     public function getTelefone() {
@@ -26,8 +26,8 @@ class Contacto {
         return $this->Fax;
     }
 
-    public function setCod_contacto($cod_contacto) {
-        $this->cod_contacto = $cod_contacto;
+    public function setId($Id) {
+        $this->Id = $Id;
         return $this;
     }
 
@@ -50,8 +50,7 @@ class Contacto {
         $stmt = $con->prepare($this->sql);
         $stmt->execute(array(
         $this->getTelefone(),
-        $this->getEmail(),
-        $this->getFax()
+        $this->getEmail()
         ));
         return $con->lastInsertId();
     }

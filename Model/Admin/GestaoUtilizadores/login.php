@@ -17,15 +17,13 @@ if (empty($nome) || empty($senha)) {
         if ($resultado == 0) {
              echo $mostra['msg']="Porfavor, verifique seus dados";
          }elseif ($resultado == 1) {
-             echo $mostra['msg']="Porfavor, contacte o Administrador erro 152 consoft.";
+             echo $mostra['msg']="Porfavor, contacte o Administrador erro 152 AmaClinicas.";
         }else{
-              echo $mostra['msg']="Porfavor, contacte o Administrador erro 202 consoft.";
+              echo $mostra['msg']="Porfavor, contacte o Administrador erro 202 AmaClinicas.";
          }
-
     }else{
-
-        $json = json_decode($resultado);
-        echo '<script type="text/javascript">alert("Login Efectuado com sucesso");location.href="../pages/inicio.php";</script>' ;
+        echo true;
+//alert("Login Efectuado com sucesso");location.href="../pages/inicio.php";</script>' ;
     }
 }
 ?>

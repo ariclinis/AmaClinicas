@@ -186,7 +186,7 @@
 .fa-music:before {
   content: "\f001";
 }
-.fa-Pesquisar::before {
+.fa-search:before {
   content: "\f002";
 }
 .fa-envelope-o:before {
@@ -224,10 +224,10 @@
 .fa-times:before {
   content: "\f00d";
 }
-.fa-Pesquisar:-plus:before {
+.fa-search-plus:before {
   content: "\f00e";
 }
-.fa-Pesquisar:-minus:before {
+.fa-search-minus:before {
   content: "\f010";
 }
 .fa-power-off:before {

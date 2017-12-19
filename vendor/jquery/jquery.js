@@ -902,7 +902,7 @@ function createCache() {
 	function cache( key, value ) {
 		// Use (key + " ") to avoid collision with native prototype properties (see Issue #157)
 		if ( keys.push( key + " " ) > Expr.cacheLength ) {
-			// Only keep the most recent Registos na Página
+			// Only keep the most recent entries
 			delete cache[ keys.shift() ];
 		}
 		return (cache[ key + " " ] = value);
@@ -2053,7 +2053,7 @@ Expr = Sizzle.selectors = {
 				elem.type === "text" &&
 
 				// Support: IE<8
-				// New HTML5 attribute values (e.g., "Pesquisar:") appear with elem.type === "text"
+				// New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
 				( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text" );
 		},
 
@@ -2642,7 +2642,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 				break;
 			}
 			if ( (find = Expr.find[ type ]) ) {
-				// Pesquisar:, expanding context for leading sibling combinators
+				// Search, expanding context for leading sibling combinators
 				if ( (seed = find(
 					token.matches[0].replace( runescape, funescape ),
 					rsibling.test( tokens[0].type ) && testContext( context.parentNode ) || context

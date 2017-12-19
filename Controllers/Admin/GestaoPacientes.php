@@ -9,17 +9,18 @@
 /**
  * Description of Paciente
  *
- * @author Anas Tadeu
+ * @author Ariclene M2G
  */
-class Paciente {
+class GestaoPacientes{
     //put your code here
-    Private $pegar_paciente = 'INSERT INTO tbl_paciente(estado, obs, cod_pessoa, Ocup_Prof, cod_utilizador)VALUES(?,?,?,?,?)';
-    private $cod_paciente;
+    Private $pegar_paciente = 'INSERT INTO tbl_paciente(obs, id_pessoa, id_utilizador) VALUES (?,?,?)';
+    Private $query_select = "SELECT * FROM `paciente_v`";
+    private $Id;
     private $estado;
     private $obs;
-    private $cod_pessoa;
+    private $Id_pessoa;
     private $Ocup_Prof;
-    private $cod_utilizador;
+    private $Id_utilizador;
 
     public function getEstado() {
         return $this->estado;
@@ -30,22 +31,22 @@ class Paciente {
         return $this;
     }
 
-        public function getCod_paciente() {
-        return $this->cod_paciente;
+        public function getId() {
+        return $this->Id;
     }
     public function getObs() {
         return $this->obs;
     }
 
-    public function getCod_pessoa() {
-        return $this->cod_pessoa;
+    public function getId_pessoa() {
+        return $this->Id_pessoa;
     }
-    public function getCod_utilizador() {
-        return $this->cod_utilizador;
+    public function getId_utilizador() {
+        return $this->Id_utilizador;
     }
 
-    public function setCod_paciente($cod_paciente) {
-        $this->cod_paciente = $cod_paciente;
+    public function setId($Id) {
+        $this->Id = $Id;
         return $this;
     }
     public function setObs($obs) {
@@ -53,13 +54,13 @@ class Paciente {
         return $this;
     }
 
-    public function setCod_pessoa($cod_pessoa) {
-        $this->cod_pessoa = $cod_pessoa;
+    public function setId_pessoa($Id_pessoa) {
+        $this->Id_pessoa = $Id_pessoa;
         return $this;
     }
 
-    public function setCod_utilizador($cod_utilizador) {
-        $this->cod_utilizador = $cod_utilizador;
+    public function setId_utilizador($Id_utilizador) {
+        $this->Id_utilizador = $Id_utilizador;
         return $this;
     }
 
@@ -75,13 +76,20 @@ class Paciente {
     public function inserir_Paciente(PDO $con) {
         $stmt = $con->prepare($this->pegar_paciente);
         $stmt->execute(array(
-            $this->getEstado(),
             $this->getObs(),
-            $this->getCod_pessoa(),
-            $this->getgetOcup_Prof(),
-            $this->getCod_utilizador()
+            $this->getId_pessoa(),
+            $this->getId_utilizador()
         ));
      return $con->lastInsertId();
     }
+    public function ListagemPacientes(PDO $con){
+        $executeQuery = $con->prepare($this->query_select);
+        $executeQuery->execute();
+        $resultados = array();
+        while ($dadoListar = $executeQuery->fetch(PDO::FETCH_ASSOC)) {
 
+            $resultados[] = $dadoListar;
+        }
+        return json_encode($resultados) ;
+    }
 }

@@ -915,7 +915,7 @@ Licensed under the MIT license.
         }
 
         function allAxes() {
-            // return flat array without annoying null Registos na Página
+            // return flat array without annoying null entries
             return $.grep(xaxes.concat(yaxes), function (a) { return a; });
         }
 
@@ -2721,17 +2721,17 @@ Licensed under the MIT license.
                 return;
             }
 
-            var fragments = [], Registos na Página = [], rowStarted = false,
+            var fragments = [], entries = [], rowStarted = false,
                 lf = options.legend.labelFormatter, s, label;
 
-            // Build a list of legend Registos na Página, with each having a label and a color
+            // Build a list of legend entries, with each having a label and a color
 
             for (var i = 0; i < series.length; ++i) {
                 s = series[i];
                 if (s.label) {
                     label = lf ? lf(s.label, s) : s.label;
                     if (label) {
-                        Registos na Página.push({
+                        entries.push({
                             label: label,
                             color: s.color
                         });
@@ -2743,12 +2743,12 @@ Licensed under the MIT license.
 
             if (options.legend.sorted) {
                 if ($.isFunction(options.legend.sorted)) {
-                    Registos na Página.sort(options.legend.sorted);
+                    entries.sort(options.legend.sorted);
                 } else if (options.legend.sorted == "reverse") {
-                	Registos na Página.reverse();
+                	entries.reverse();
                 } else {
                     var ascending = options.legend.sorted != "descending";
-                    Registos na Página.sort(function(a, b) {
+                    entries.sort(function(a, b) {
                         return a.label == b.label ? 0 : (
                             (a.label < b.label) != ascending ? 1 : -1   // Logical XOR
                         );
@@ -2756,11 +2756,11 @@ Licensed under the MIT license.
                 }
             }
 
-            // Generate markup for the list of Registos na Página, in their final order
+            // Generate markup for the list of entries, in their final order
 
-            for (var i = 0; i < Registos na Página.length; ++i) {
+            for (var i = 0; i < entries.length; ++i) {
 
-                var entry = Registos na Página[i];
+                var entry = entries[i];
 
                 if (i % options.legend.noColumns == 0) {
                     if (rowStarted)

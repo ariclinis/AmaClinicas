@@ -3715,7 +3715,7 @@ var cachedruns,
 			keys = [];
 
 		return markFunction(function( key, value ) {
-			// Only keep the most recent Registos na Página
+			// Only keep the most recent entries
 			if ( keys.push( key ) > Expr.cacheLength ) {
 				delete cache[ keys.shift() ];
 			}
@@ -4479,7 +4479,7 @@ Expr = Sizzle.selectors = {
 
 		"text": function( elem ) {
 			var type, attr;
-			// IE6 and 7 will map elem.type to 'text' for new HTML5 types (Pesquisar:, etc)
+			// IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
 			// use getAttribute instead to test this case
 			return elem.nodeName.toLowerCase() === "input" &&
 				(type = elem.type) === "text" &&
@@ -5140,7 +5140,7 @@ function select( selector, context, results, seed, xml ) {
 					break;
 				}
 				if ( (find = Expr.find[ type ]) ) {
-					// Pesquisar:, expanding context for leading sibling combinators
+					// Search, expanding context for leading sibling combinators
 					if ( (seed = find(
 						token.matches[0].replace( rbackslash, "" ),
 						rsibling.test( tokens[0].type ) && context.parentNode || context,
@@ -7178,7 +7178,7 @@ jQuery.each({
 var r20 = /%20/g,
 	rbracket = /\[\]$/,
 	rCRLF = /\r?\n/g,
-	rinput = /^(?:color|date|datetime|datetime-local|email|hidden|month|number|password|range|Pesquisar:|tel|text|time|url|week)$/i,
+	rinput = /^(?:color|date|datetime|datetime-local|email|hidden|month|number|password|range|search|tel|text|time|url|week)$/i,
 	rselectTextarea = /^(?:select|textarea)/i;
 
 jQuery.fn.extend({

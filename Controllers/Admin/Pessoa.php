@@ -1,15 +1,15 @@
 <?php
 
 /**
- * 
+ *
  *
  * @author Ariclene Chimbili
  */
 class Pessoa {
 
     //put your code here
-    public $pegar_pessoa = "INSERT INTO tbl_pessoa(nome, nome_pai, nome_mae, n_bi, data_nasc, genero, nacionalidade,data_registo, Cod_provincia_nasc, Cod_municipio_nasc, Idade, Cod_Contacto, Cod_Bairro, Cod_Filiar_Clinica,Provincia_localidade, Municipio_Localidade)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private $Cod_pessoa;
+    public $pegar_pessoa = "INSERT INTO tbl_pessoa(nome, nome_pai, nome_mae, n_bi, data_nasc, genero, nacionalidade, data_registo, Idade, Id_Contacto, Id_Bairro, Id_Filiar_Clinica, Provincia_localidade, Municipio_Localidade) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private $Id;
     private $Nome;
     private $Nome_pai;
     private $Nome_mae;
@@ -18,19 +18,17 @@ class Pessoa {
     private $Genero;
     private $Nacionalidade;
     private $Data_registo;
-    private $Cod_provincia_nasc;
-    private $Cod_municipio_nasc	;
     private $idade;
-    private $Cod_Filiar_Clinica;
-    private $Cod_Contacto;
-    private $Cod_Bairro;
+    private $Id_filiarClinica;
+    private $Id_contacto;
+    private $Id_bairro;
     private $Provincia_localidade;
     Private $Municipio_Localidade;
 
 
-    
-    function getCod_pessoa() {
-        return $this->Cod_pessoa;
+
+    function getId() {
+        return $this->Id;
     }
 
     function getNome() {
@@ -77,12 +75,12 @@ class Pessoa {
         return $this->idade;
     }
 
-    function getCod_Filiar_Clinica() {
-        return $this->Cod_Filiar_Clinica;
+    function getId_filiarClinica() {
+        return $this->Id_filiarClinica;
     }
 
-    function getCod_Contacto() {
-        return $this->Cod_Contacto;
+    function getId_contacto() {
+        return $this->Id_contacto;
     }
 
     function getProvincia_localidade() {
@@ -93,8 +91,8 @@ class Pessoa {
         return $this->Municipio_Localidade;
     }
 
-    function setCod_pessoa($Cod_pessoa) {
-        $this->Cod_pessoa = $Cod_pessoa;
+    function setId($Id) {
+        $this->Id = $Id;
     }
 
     function setNome($Nome) {
@@ -141,12 +139,12 @@ class Pessoa {
         $this->idade = $idade;
     }
 
-    function setCod_Filiar_Clinica($Cod_Filiar_Clinica) {
-        $this->Cod_Filiar_Clinica = $Cod_Filiar_Clinica;
+    function setId_filiarClinica($Id_filiarClinica) {
+        $this->Id_filiarClinica = $Id_filiarClinica;
     }
 
-    function setCod_Contacto($Cod_Contacto) {
-        $this->Cod_Contacto = $Cod_Contacto;
+    function setId_contacto($Id_contacto) {
+        $this->Id_contacto = $Id_contacto;
     }
 
     function setProvincia_localidade($Provincia_localidade) {
@@ -156,15 +154,35 @@ class Pessoa {
     function setMunicipio_Localidade($Municipio_Localidade) {
         $this->Municipio_Localidade = $Municipio_Localidade;
     }
-    
-    function getCod_Bairro() {
-        return $this->Cod_Bairro;
+
+    function getId_bairro() {
+        return $this->Id_bairro;
     }
 
-    function setCod_Bairro($Cod_Bairro) {
-        $this->Cod_Bairro = $Cod_Bairro;
+    function setId_bairro($Id_bairro) {
+        $this->Id_bairro = $Id_bairro;
     }
-    
+    public function Calcular_idade($data_enviada){
+        if (empty($data_enviada)) {
+            # code...
+        }else{
+            $data = $data_enviada;
+
+// Separa em ano, mês e dia
+        list($ano, $mes, $dia) = explode('-', $data);
+
+// Descobre que dia é hoje e retorna a unix timestamp
+        $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+
+// Descobre a unix timestamp da data de nascimento do fulano
+        $nascimento = mktime( 0, 0, 0, $mes, $dia, $ano);
+
+// Depois apenas fazemos o cálculo já citado :)
+        $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
+        return $idade;
+        }
+
+    }
         public function inserir_pessoa(PDO $con) {
         $stmt = $con->prepare($this->pegar_pessoa);
         $stmt->execute(array(
@@ -175,13 +193,11 @@ class Pessoa {
             $this->getData_nasc(),
             $this->getGenero(),
             $this->getNacionalidade(),
-            $this->getData_registo(),
-            $this->getCod_provincia_nasc(),
-            $this->getCod_municipio_nasc(),
+            date("Y-m-d H:i:s"),
             $this->getIdade(),
-            $this->getCod_Contacto(),
-            $this->getCod_Bairro(),
-            $this->getCod_Filiar_Clinica(),
+            $this->getId_Contacto(),
+            $this->getId_Bairro(),
+            $this->getId_filiarClinica(),
             $this->getProvincia_localidade(),
             $this->getMunicipio_Localidade()
         ));

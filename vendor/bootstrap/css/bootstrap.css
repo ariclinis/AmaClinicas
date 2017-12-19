@@ -154,14 +154,14 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
-input[type="Pesquisar:"] {
+input[type="search"] {
   -webkit-box-sizing: content-box;
      -moz-box-sizing: content-box;
           box-sizing: content-box;
   -webkit-appearance: textfield;
 }
-input[type="Pesquisar:"]::-webkit-Pesquisar:-cancel-button,
-input[type="Pesquisar:"]::-webkit-Pesquisar:-decoration {
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 fieldset {
@@ -306,7 +306,7 @@ th {
 .glyphicon-music:before {
   content: "\e002";
 }
-.glyphicon-Pesquisar::before {
+.glyphicon-search:before {
   content: "\e003";
 }
 .glyphicon-heart:before {
@@ -2511,7 +2511,7 @@ label {
   margin-bottom: 5px;
   font-weight: bold;
 }
-input[type="Pesquisar:"] {
+input[type="search"] {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
@@ -2597,7 +2597,7 @@ fieldset[disabled] .form-control {
 textarea.form-control {
   height: auto;
 }
-input[type="Pesquisar:"] {
+input[type="search"] {
   -webkit-appearance: none;
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) {

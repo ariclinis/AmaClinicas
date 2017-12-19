@@ -5,8 +5,6 @@ function verificar_json(str) {
     } catch (e) {
         return false;
     }
-
-
 }
 function login(){
     $('#entrar').on('click',function(){
@@ -15,10 +13,15 @@ function login(){
 
     $.ajax({
         type: "POST",
-        url: "../Model/Admin/GestaoUtilizadores/login.php",
+        url: "Model/Admin/GestaoUtilizadores/login.php",
         data: "nome="+user+"&senha="+senha,
         success:function(resultado){
-            $('#msg').html('<div class="alert alert-warning" role="alert"> <strong>Problema!</strong>'+resultado+'</div>');
+            if (resultado==1) {
+            $('#msg').html('<div class="alert alert-success" role="alert"> <strong>Sucesso!</strong>Login Efectuado</div>');
+            window.setTimeout("location.href='pages/inicio.php'",4000);
+            }else{
+             $('#msg').html('<div class="alert alert-warning" role="alert"> <strong>Problema!</strong>'+resultado+'</div>');
+            }
         }
     });
     });

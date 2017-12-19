@@ -9,17 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Consoft-Sistema de Gestão Integrado</title>
-
+    <title>AmaClinicas-Sistema de Gestão Integrado</title>
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -31,36 +27,24 @@
     <![endif]-->
 
 </head>
-
 <body>
-
     <div id="wrapper">
-
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="inicio.php">GCSoft - Sistema de Gestão de Clinicas</a>
-            </div>
+           <?php include './Identidade_Clinica.php'; ?>
             <!-- /.navbar-header -->
-
-			<?php include './Cabecalho.php'; ?>
+            
+	   <?php include './Cabecalho.php'; ?>
 	        <!-- /.navbar-top-links -->
-
+                
            <?php include './Menu.php'; ?>
             <!-- /.navbar-static-side -->
+            
         </nav>
         <div id="page-wrapper"><br>
-            
             <div class="row">
                 <div class="col-lg-12">
-
-                <div class="#msg">
+                <div id="msg"></div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Cadastro de Pacientes
@@ -79,7 +63,7 @@
 
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div class="tab-pane fade in active" id="dados_pessoas"><p>    
+                                <div class="tab-pane fade in active" id="dados_pessoas">
                                 <div class="help-block">
                                 <label>Nome</label>
                                 <input name="nome" id="nome" class="form-control col-md-5 col-lg-6" required>
@@ -87,7 +71,7 @@
 
                                 <div class="help-block">
                                 <label>Nome da Pai</label>
-                                <input    name="nome_pai" id="nome_pai" class="form-control col-md-5 col-lg-6"><br>
+                                <input  name="nome_pai" id="nome_pai" class="form-control col-md-5 col-lg-6"><br>
                                 </div>
 
                                 <div class="help-block">
@@ -106,9 +90,9 @@
                                 </label>
                                 </div>
 
-                                 <div class="help-block">
+                                 <div class="help-block ">
                                 <label>Data de Nascimento</label>
-                                <input name="Data_nasc" id="Data_nasc" class="form-control col-md-5 col-lg-6">
+                                <input name="Data_nasc" id="Data_nasc" type="date" placeholder="Dia/Mês/ano" class="form-control col-md-5 col-lg-6">
                                 </div>
 
                                 <div class="help-block">
@@ -118,8 +102,7 @@
 
                                 <div class="help-block">
                                 <label for="disabledSelect">Nacionalidade</label>
-                                <select class="form-control" name="nacionalidade" id="nacionalidade">
-                                <option value=""></option>
+                                <select class="form-control" name="nacio" id="nacio">
                                 <option value="Angolana">Angolana</option>
                                 <option value="Estrangeiro">Estrangeiro</option>
                                 </select>
@@ -135,35 +118,31 @@
                                 </div>
                                 </div>
                                 <div class="tab-pane fade" id="Contactos">
-                                
+
                                 <div class="help-block">
                                 <label for="disabledSelect">Provincia</label>
-                                <select class="form-control" name="provincia_localidade" id="provincia_localidade">
-                                <option value=""></option>
-                                <option value="1">Angolana</option>
-                                <option value="2">Estrangeiro</option>
+                                <select class="form-control provincias" name="provincia_localidade" id="provincia_localidade">
+
                                 </select>
                                 </div>
 
                                 <div class="help-block">
                                 <label for="disabledSelect">Municipio</label>
-                                <select class="form-control" name="municipio_localidade" id="municipio_localidade">
-                                <option value=""></option>
-                                <option value="1">Angolana</option>
-                                <option value="2">Estrangeiro</option>
+                                <select class="form-control municipios" name="municipio_localidade" id="municipio_localidade">
+
                                 </select>
                                 </div>
 
                                 <div class="help-block">
                                 <label for="disabledSelect">Bairro</label>
-                                <select class="form-control" name="bairro" id="bairro" >
-                                <option value=""></option>
-                                <option value="1">Angolana</option>
-                                <option value="2">Estrangeiro</option>
+                                <select class="form-control bairros" name="bairro" id="bairro" >
+
                                 </select>
                                 </div>
-
-
+                                <div class="help-block">
+                                <label>E-mail</label>
+                                <input class="form-control col-md-5 col-lg-6" type="email" name="email" id="email">
+                                </div>
                                 <div class="help-block">
                                 <label>Nº Telefone</label>
                                 <input class="form-control col-md-5 col-lg-6" name="telefone" id="telefone">
@@ -179,7 +158,7 @@
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-6 -->
-                
+
                 <!-- /.col-lg-6 -->
             </div>
         </div>
@@ -199,65 +178,13 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
+    <script type="text/javascript" src="../js/Admin/pacientes.js"></script>
+    <script type="text/javascript" src="../js/Admin/geral.js"></script>
     <script type="text/javascript">
-
-    //Codigo JQuary para insert de dados
-   
-    $('#Cadastro').click(function(e) {
-    
-        e.preventDefault();
-        
-
-        var nome = jQuery('#nome').val();
-        var nomemae = jQuery('#nome_mae').val();
-        var nomepai = jQuery('#nome_pai').val();
-        var bi = jQuery('#bi').val();
-        var datanasc = jQuery('#Data_nasc').val();
-        var genero = jQuery('#genero').val();
-      //  var ecivil = jQuery('#estado_civil').val();
-        var nacio = jQuery('#nacionalidade').val();
-       // var provnasc = jQuery('#prov_nasc').val();
-        //var muninasc = jQuery('#munic_nasc').val();
-      //  var altura= jQuery('#altura').val();
-        var obs = jQuery('#obs').val();
-
-        var provloca = jQuery('#provincia_localidade').val();
-        var muniloca = jQuery('#municipio_localidade').val();
-        var morada = jQuery('#bairro').val();
-        var phone = jQuery('#telefone').val();
-        //var fax = jQuery('#fax').val();
-        //var ocupacao = jQuery('#ocup').val();
-       // var email = jQuery('#email').val();
-        // var foto = jQuery('#foto').val();
-        $('#Cadastro').find("a[href*='Cadastro']").trigger('click');
-
-        $.ajax({
-            type: "POST",
-            url: "../Controllers/Gestao_Pacientes/Cadastrar_Paciente.php",
-            data: {nome: nome, nomepai:nomepai, nomemae:nomemae, bi: bi, datanasc:datanasc, genero: genero, nacio: nacio, obs:obs, provloca:provloca, muniloca:muniloca, morada: morada, phone: phone},
-            //beforeSend: function(dado){
-            //jQuery('.user-profile').append('Processando.....<span class=" fa fa-angle-down"> Processando</span>');
-            //},
-            success: function (data) {
-                if($(".form-horizontal input").val() != ""){
-                if (data.toString() == 'sucesso') {
-                    jQuery('#msg').html('<div class="alert alert-success"><button data-dismiss="alert" class="close">×</button><strong>Êxito!</strong> Cadastro do Paciente efectuado com sucesso.</div>').show(300).delay(5000).hide(300);
-                    $(".form-horizontal input").val(""); //limpa todos inputs do formulário
-return false;
-                } else {
-                     jQuery('#msg').html('<div class="alert alert-error"><button data-dismiss="alert" class="close">×</button><strong>Problema!</strong>Ocorreu um erro ao cadastrar o Paciente.</div>').show(300).delay(5000).hide(300);
-                    $(".form-horizontal input").val(""); //limpa todos inputs do formulário
-return false;
-                }
-            }
-                else{
-                    jQuery('#msg').html('<div class="alert"><button data-dismiss="alert" class="close">×</button><strong>Irregularidade!</strong> Porfavor verifique se os campos estão devidamente preenchidos.</div>').show(300).delay(5000).hide(300);
-                }
-            }
-        });
-  
-    });
+    inserirPaciente();
+    ListarProvincias();
+    ListarMunicipios();
+    ListarBairros();
 </script>
 
 </body>

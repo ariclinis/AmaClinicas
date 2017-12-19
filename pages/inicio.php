@@ -1,16 +1,34 @@
+<?php
+include_once("../Config/ligar_bd.php");
+$utilizador= filter_input(INPUT_GET, 'user');
+$pdo=  Ligar::chamar_bd();
+$Pegar_consultas=$pdo->prepare("SELECT count(*) FROM `meus_pacientes_v`");
+$Pegar_consultas->execute();
+$dado= $Pegar_consultas->fetch(PDO::FETCH_ASSOC);
+
+$Pegar_paciente=$pdo->prepare("SELECT count(*) FROM `paciente_v`");
+$Pegar_paciente->execute();
+$retorno= $Pegar_paciente->fetch(PDO::FETCH_ASSOC);
+
+$Pegar_Consultas_aguarda=$pdo->prepare("SELECT count(*) FROM `meus_pacientes_v` where Estado_Fila='Aguarda Atedimento' && Estado_Consulta='Agendada'");
+$Pegar_Consultas_aguarda->execute();
+$agurda= $Pegar_Consultas_aguarda->fetch(PDO::FETCH_ASSOC);
+
+$Pegar_=$pdo->prepare("SELECT count(*) FROM `meus_pacientes_v` where Estado_Fila='Ausente' && Estado_Consulta='Cancelada'");
+$Pegar_->execute();
+$cancelar= $Pegar_->fetch(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Consoft-Sistema de Gestão Integrado</title>
-
+    <title>AmaClinicas-Sistema de Gestão Integrado</title>
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -19,7 +37,7 @@
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-
+    
     <!-- Morris Charts CSS -->
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
 
@@ -41,15 +59,7 @@
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="inicio.php">GCSoft - Sistema de Gestão de Clinicas</a>
-            </div>
+            <?php include './Identidade_Clinica.php';?>
             <!-- /.navbar-header -->
 
             <?php include './Cabecalho.php'; ?>
@@ -62,7 +72,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"></h1>
+                    <h4 class="page-header">Estatísticas</h4>
                 </div>
                 <!-- /.col-lg-12 -->
             </div><br>
@@ -74,17 +84,17 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
+                                    <i class="fa fa-group fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <div>New Comments!</div>
+                                    <div class="huge"><?php echo $retorno['count(*)']?></div>
+                                    <div>Pacientes Registados</div>
                                 </div>
                             </div>
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">Ver Detalhes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -96,17 +106,17 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
+                                    <i class="fa fa-book fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>New Tasks!</div>
+                                    <div class="huge"><?php echo $dado['count(*)']?></div>
+                                    <div>Consultas Efectudas</div>
                                 </div>
                             </div>
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">Ver Detalhes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -118,17 +128,17 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                    <i class="fa fa-user-md fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>New Orders!</div>
+                                    <div class="huge"><?php echo $agurda['count(*)']?></div>
+                                    <div>Aguardam Atendimento</div>
                                 </div>
                             </div>
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">Ver Detalhes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -140,17 +150,17 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
+                                    <i class="fa fa-book fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
-                                    <div>Support Tickets!</div>
+                                    <div class="huge"><?php echo $cancelar['count(*)']?></div>
+                                    <div>Consultas Canceladas</div>
                                 </div>
                             </div>
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">Ver detalhes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -176,10 +186,13 @@
     <script src="../vendor/raphael/raphael.min.js"></script>
     <script src="../vendor/morrisjs/morris.min.js"></script>
     <script src="../data/morris-data.js"></script>
-
-    <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
+    <script type="text/javascript" src="../js/Admin/gestaoconsultas.js"></script>
+    <!-- Custom Theme JavaScript -->
+    
+    <script>
+      contar_p();
+   </script>
 </body>
 
 </html>
