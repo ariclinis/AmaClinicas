@@ -13,26 +13,27 @@ $(document).ready(function(){
     });
 });
 
-function inserir_venda(){
-console.log("click");
- $('#pagar_compra').on('click',function(){
 
+
+function inserir_venda(){
+
+    $('#pagar_compra').on('click',function(){
+        var cliente_compra=jQuery('#cliente').val();
         var valortotal = jQuery('#valortotal').val();
         var desc = jQuery('#desc').val();
         var formapag = jQuery('#formapag').val();
         var valor_recebido = jQuery('#valor_recebido').val();
-        var troco = jQuery('#troco').val();
-        console.log(desc);
+
     $.ajax({
         type: "POST",
-        data: "valor_factura="+valortotal+"&desconto="+desc+"&forma="+formapag+"&valorrecebido="+valor_recebido+"&troco="+troco+"&codproduto="+codigo_produto+"&produto="+produto+"&preco="+preco_uni+"&qtd="+quantidade+"&total="+subtotal,
-        url: "../Model/Admin/",
+        data: "valor_factura="+valortotal+"&desconto="+desc+"&forma="+formapag+"&valorrecebido="+valor_recebido+"&codproduto="+codigo_produto+"&qtd="+quantidade+"&total="+subtotal+"&idcliente="+cliente_compra,
+        url: "../Model/Admin/GestaoFarmacia/inserir.php",
         success:function(resultado){
             if(resultado=="sucesso"){
-                $('#msg_venda').html('<div class="alert alert-success" role="alert"> <strong>Sucesso!</strong> Registo efetuado com sucesso.</div>').show(300).delay(5000).hide(300); 
+                $('#msg_venda').html('<div class="alert alert-success" role="alert"> <strong>Sucesso!</strong> Pagamento efetuado com sucesso.</div>').show(300).delay(5000).hide(300); 
             }else{
                 console.log(resultado);
-                //$('#msg_medico').html('<div class="alert alert-warning" role="alert"> <strong>Problema!</strong> Ocorreu um erro ao fazer o Registo</div>').show(300).delay(5000).hide(300);
+                $('#msg_venda').html('<div class="alert alert-warning" role="alert"> <strong>Problema!</strong> Ocorreu um erro ao fazer o Pagamento</div>').show(300).delay(5000).hide(300);
             }
         }
     });
@@ -79,8 +80,8 @@ function selecionar_producto(medicamento){
                 type: "POST",
                 data: "medicamento="+medicamento,
                 beforeSend: function(){
-                   
-                 }, 
+
+                }, 
                 success:function(resultado){
                     if(resultado=="[]" || resultado.legth ==0){
                         $('#preco').val("0,00");
@@ -97,7 +98,7 @@ function selecionar_producto(medicamento){
 
                 }
             });
-}
- 
 
-    
+
+
+}
