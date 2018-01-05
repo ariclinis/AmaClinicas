@@ -15,6 +15,7 @@
                             </a></li> 
                             </ul>
                         </li>
+                        
                         <!--Menu Gestão de Consultas Médicas-->
                         <li>
                             <a><i class="fa fa-book"></i> Consultas Médicas<span class="fa arrow"></span></a>
@@ -62,8 +63,25 @@
                         </ul>
                             <!-- /.nav-second-level 
                         </li>-->
-
+                            
+                            <!--Menu Historico de Pacientes-->
+                        
+                       
+                        <li>
+                        <a><i class="fa fa-medkit"></i> Gestão de Farmácia<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a class="" href="Farmacia_Venda.php">Tela de Venda</a></li> 
+                            <li><a class="" href="Banco_Urgencia_Listagem.php">Clientes </a></li> 
+                            <li><a class="" href="Unidade_Sanitaria_Listagem.php">Fluxo de Caixa</a></li>
+                            <li><a class="" href="#">Produtos e Stock</a></li>
+                            <li><a class="" href="#">Produtos</a></li>
+                            <li><a class="" href="Unidade_Sanitaria_Listagem.php">Entrada de Produtos</a></li>
+                            <li><a class="" href="Funcionario_Listagem.php">Fornecedores</a></li>
+                        </ul> 
+                        </li>
+                        
                         <!--Menu Gestão de Estatistícas -->
+                        
                         <li>
                             <a><i class="fa fa-bar-chart-o"></i> Gestão de Estatistícas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

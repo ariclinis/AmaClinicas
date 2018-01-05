@@ -64,11 +64,11 @@
                                 <div class="tab-pane" id="Regras">
                                 <div class="help-block">
                                 <label>Senha Actual</label>
-                                <input class="form-control col-md-4 col-lg-4" type="text" name="Antiga" id="Antiga">
+                                <input class="form-control col-md-4 col-lg-4" type="text" name="antiga" id="antiga">
                                 </div>
                                 <div class="help-block">
                                 <label>Nova Senha</label>
-                                <input class="form-control col-md-4 col-lg-4" name="SenhaNova" id="SenhaNova">
+                                <input class="form-control col-md-4 col-lg-4" name="senhaNova" id="senhaNova">
                                 </div>
                                 <div class="help-block">
                                 <label>Confirmar Nova Senha</label>
@@ -80,7 +80,7 @@
                                 <div class="panel panel-default">
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <button type="button" class="btn btn-primary" id="Alterar_senha" name="Alterar_senha">Alterar Senha</button>
+                            <button type="button" class="btn btn-primary" id="alterar_senha" name="alterar_senha">Alterar Senha</button>
                                 <button type="button" class="btn btn-danger">Cancelar</button>
                         </div>
                         <!-- /.panel-body -->

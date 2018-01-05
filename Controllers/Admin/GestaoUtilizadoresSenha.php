@@ -23,11 +23,11 @@ function setSenha($Senha) {
 
 
     public function Alterar_Senha(PDO $con) {
-        $stmt = $con->prepare("UPDATE tbl_utilizador SET Senha=? WHERE cod_utilizador=?");
+        $stmt = $con->prepare("UPDATE tbl_utilizador SET Senha=? WHERE id=?");
         $stmt->execute(array(
             $this->getSenha(),
             $this->getId()
         ));
-    
+        return 1;
     }
 }

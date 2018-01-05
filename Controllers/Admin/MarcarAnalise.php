@@ -11,8 +11,6 @@ private $query_select="SELECT * FROM tbl_analises_clinicas";
 private $query_insert="INSERT INTO `tbl_marcar_analise`(`id_Paciente`, `Situa`, `DataAnalise`, `Data_Registo`, `id_utilizador`, `id_Filiar`) VALUES (?,?,?,?,?,?)";
 
 private $analise_paciente="INSERT INTO `tbl_analises_paciente`(`idAnalise`,`IdAnaliseConsulta`,`Data_Registo`,n_consulta) VALUES (?,?,?,?)";
-
-
 //Marcar Analise
  private $id;
  private $Cod_Paciente;

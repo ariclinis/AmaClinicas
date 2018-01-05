@@ -48,6 +48,59 @@ function ListarBairros(){
             });
 }
 
+function ListarClientes(){
+    var dados = $(".clientes");
+     dados.html("");
+    $.ajax({
+                type: "GET",
+                data: "",
+                url: "../Model/Admin/GestaoConsultas/Listagem_Clientes.php",
+                success: function (result) {
+                    var resultadoObj= JSON.parse(result);
+                    $.each(resultadoObj, function(key,val){
+                        var novaLinha = $(".clientes");
+                        dados.append("<option value="+val.id+">"+val.Cliente+"</option>");
+                    });
+                }
+            });
+}
+
+function ListarProdutos(){
+    var dados = $(".produtos");
+     dados.html("<option value=''>Selecione o producto</option>");
+    $.ajax({
+                type: "GET",
+                data: "",
+                url: "../Model/Admin/GestaoConsultas/listagem_produtos.php",
+                success: function (result) {
+                    var resultadoObj= JSON.parse(result);
+                    $.each(resultadoObj, function(key,val){
+                        var novaLinha1 = $(".produtos");
+                        dados.append("<option value="+val.id+">"+val.nomeproduto+"</option>");
+                    });
+                }
+            });
+}
+
+function ListarProduto_codigo(){
+    var dados = $(".codproduto");
+     dados.html("");
+    $.ajax({
+                type: "GET",
+                data: "",
+                url: "../Model/Admin/GestaoConsultas/listagem_produtos.php",
+                success: function (result) {
+                    var resultadoObj= JSON.parse(result);
+                    $.each(resultadoObj, function(key,val){
+                        var novaLinha = $(".codproduto");
+                        dados.append("<option value="+val.id+">"+val.Cod_Produto+"</option>");
+                    });
+                }
+            });
+}
+
+
+
 function ListarEspecialidades(){
 var dados = $(".especialidades");
 dados.html("");

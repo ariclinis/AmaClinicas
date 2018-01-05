@@ -78,7 +78,7 @@
                                 <label>Nome da Pai</label>
                                 <input  name="nome_pai" id="nome_pai" class="form-control col-md-5 col-lg-6"><br>
                                 </div>
-
+                                    
                                 <div class="help-block">
                                 <label>Nome do Mãe</label>
                                 <input name="nome_mae" id="nome_mae" class="form-control col-md-5 col-lg-6">
@@ -119,7 +119,6 @@
                                 <div class="help-block"><br>
                                 <label for="disabledSelect" >Especialidade</label>
                                 <select class="form-control especialidades" name="especialidade" id="especialidade">
-                                   
                                 </select>
                                 </div>  
                                     
@@ -154,7 +153,7 @@
                                 <div class="help-block">
                                 <label>E-mail</label>
                                 <input class="form-control col-md-5 col-lg-6" type="text" name="email" id="email">
-                                </div>
+                                </div><p></p>
                                 <div class="help-block">
                                 <label>Nº Telefone</label>
                                 <input class="form-control col-md-5 col-lg-6" name="telefone" id="telefone">
