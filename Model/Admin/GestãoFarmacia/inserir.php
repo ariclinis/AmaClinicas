@@ -22,7 +22,7 @@ try {
         $idvenda = $venda->inserir_venda(Ligar::chamar_bd());
         
         $idproduto = filter_input(INPUT_POST, 'codproduto');
-        $contar_prod = count('codproduto');//erro
+        $contar_prod = count('codproduto');//erro mariano
         $quantidade = filter_input(INPUT_POST, 'qtd');
         $Subtotal = filter_input(INPUT_POST, 'total');
 //       
