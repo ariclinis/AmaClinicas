@@ -288,6 +288,7 @@
     ListarProduto_codigo();
     Adicionar_Produto();
     inserir_venda();
+    
     $("#produto").on('change', function(){
         var medicamento = this.value;
             //console.log(medicamento);
