@@ -16,8 +16,8 @@ class GestaoFarmacia {
     private $query_produtos="SELECT * FROM `tbl_produtos`";
     private $query_dados_producto="SELECT * FROM `tbl_entrada_produtos` WHERE id_produto =? ORDER BY data_registo DESC LIMIT 1";
     private $query_selecionar_quantidade_produto ="SELECT * FROM `tbl_entrada_produtos` WHERE `id_produto`= ?";
-    private $query_descontar_quantidade_produto ="UPDATE `tbl_entrada_produtos` SET `qtdstock`= ? WHERE `id_produto`= ?";
-    private $insert_factura="INSERT INTO `tbl_vendas`(`n_factura`, `cod_cliente`, `qtd_compra`, `valor_factura`, `total`, `descontos`, `valor_recebido`, `troco`, `forma_pagamento`, `data_venda`, `id_utilizador`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+    private $query_descontar_quantidade_produto ="UPDATE `tbl_entrada_produtos` SET `qtdstock`= `qtdstock` - ? WHERE `id_produto`= ?";
+    private $insert_factura="INSERT INTO `tbl_vendas`(`n_factura`, `cod_cliente`, `valor_factura`, `total`, `descontos`, `valor_recebido`, `troco`, `forma_pagamento`, `data_venda`, `id_utilizador`) VALUES (?,?,?,?,?,?,?,?,?,?)";
     
     Private $insert_produtos="INSERT INTO `tbl_venda_produtos`(`idvenda`, `Idproduto`, `data_registo`, `qtd_compra`) VALUES (?,?,?,?)";
     
@@ -181,13 +181,13 @@ class GestaoFarmacia {
 
         return $this;
     }
+//--------------------------- INSERTES -------------------------//
 public function inserir_venda(PDO $con) {
-        $stmt = $con->prepare($this->insert_factura);
+        $stmt = $con->prepare("INSERT INTO `tbl_vendas`(`n_factura`, `cod_cliente`, `valor_factura`, `total`, `descontos`, `valor_recebido`, `troco`, `forma_pagamento`, `data_venda`, `id_utilizador`) VALUES (?,?,?,?,?,?,?,?,?,?)");
         $stmt->execute(
             array(
             $this->getN_factura(),
             $this->getCod_cliente(),
-            intval($this->getQtd_compra()),
             $this->getValor_factura(),
             $this->getTotal(),
             $this->getDescontos(),
@@ -209,10 +209,22 @@ public function inserir_venda_produtos(PDO $con) {
             $this->getIdproduto(),
             date('m-d-Y'),
             $this->getQtd_compra()
-        )
-);
+        ));
      return $con->lastInsertId();
     }
+// -----------------------------SELECTES COM WHERE OU CONDICÕES---------//
+
+public function listagem_produtos_dados(PDO $con){
+    $executeQuery = $con->prepare($this->query_dados_producto);
+    $executeQuery->execute(array($this->getPesquisa()));
+    $resultados = array();
+    while ($dadoListar = $executeQuery->fetch(PDO::FETCH_ASSOC)) {
+        $resultados[] = $dadoListar;
+    }
+    return json_encode($resultados) ;
+}
+
+//------------------------------ SELECTES --------------------------//
 public function listagem_clientes(PDO $con){
     	$executeQuery = $con->prepare($this->query_select);
         $executeQuery->execute();
@@ -222,16 +234,6 @@ public function listagem_clientes(PDO $con){
         }
         return json_encode($resultados) ;
     }
-    
-public function listagem_produtos_dados(PDO $con){
-    	$executeQuery = $con->prepare($this->query_dados_producto);
-        $executeQuery->execute(array($this->getPesquisa()));
-        $resultados = array();
-        while ($dadoListar = $executeQuery->fetch(PDO::FETCH_ASSOC)) {
-            $resultados[] = $dadoListar;
-        }
-        return json_encode($resultados) ;
-}
 
 public function listagem_produtos(PDO $con){
     	$executeQuery = $con->prepare($this->query_produtos);
@@ -242,7 +244,14 @@ public function listagem_produtos(PDO $con){
         }
         return json_encode($resultados) ;
     }
-
-
+//------------------------------ UPDATES ------------------------------//
+public function descontar_quantidade_produto(PDO $con){
+    $executeQuery = $con->prepare($this->query_descontar_quantidade_produto);
+    $executeQuery->execute(
+        array(
+                $this->getQtd_compra(),
+                $this->getIdproduto()
+        ));
+}
 
 }

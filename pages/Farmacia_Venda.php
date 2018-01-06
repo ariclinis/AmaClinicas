@@ -285,18 +285,33 @@
     ListarProduto_codigo();
     Adicionar_Produto();
     inserir_venda();
-    
+    $("#desconto_venda").blur(function(){
+        var valor = this.value;
+        var preco = $('#valortotal').val();
+        var p= (preco *valor)/100;
+        
+        if(preco>0){
+            if(valor<=100){
+                $('#valor_desconto').val(p.toFixed(2).replace('.',','));
+            }else{
+                alert('O desconto não pode ser superior a 100%');
+                this.value= 0;
+            }
+            
+        }
+        
+    });
     $("#valor_desconto").blur(function(){
         var valor = this.value;
         var preco = $('#valortotal').val();
-        var p= (100 *valor)/preco;
+        var p= (valor *100)/preco;
         
         if(preco>0){
-            if(p<valor){
+            if(valor<=preco){
                 $('#desconto_venda').val(p.toFixed(2).replace('.',','));
             }else{
                 alert('O desconto não pode ser superior ao valor da compra');
-                this.val('0');
+                this.value= 0;
             }
             
         }

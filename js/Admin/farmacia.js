@@ -22,10 +22,10 @@ var valortotal=0;
 //Para se Analisar
 //-----------------------------------------------
 function remover_elementos(variavel){//----------
-    var arr = variavel;{             //----------
-    var itemtoRemove = "HTML";{      //---------- 
-    arr.splice($.inArray(itemtoRemove, arr),1);{//-
-}{                                      //---------
+    var arr = variavel;             //----------
+    var itemtoRemove = "HTML";     //---------- 
+    arr.splice($.inArray(itemtoRemove, arr),1);//-
+}                                      //---------
 $('#remover').on('click', function(){   //---------
                                         //---------
 });                                    //--------
@@ -37,30 +37,34 @@ function inserir_venda(){
         var codproduto= JSON.stringify(codigo_produto);
         var q = JSON.stringify(quantidade);
         var cliente_compra=jQuery('#cliente').val();
-        var desconto = jQuery('#desconto').val();
+        var desconto = jQuery('#desconto_venda').val();
         var formapagamento = jQuery('#formapag').val();
         var resultado_valor_total = $('#valortotal').val();
         var valor_recebido = $('#valor_recebido').val();
         var troco = (parseFloat(valor_recebido) - parseFloat(resultado_valor_total));
         $('#troco').val(troco);
-        console.log(troco);
-    $.ajax({
-        type: "POST",
-        data:{codproduto:codproduto, valor_factura:resultado_valor_total, desconto:desconto, formapagamento:formapagamento, valor_recebido:valor_recebido, total:resultado_valor_total, idcliente:cliente_compra, q:q, troco:troco},
-        url: "../Model/Admin/GestaoFarmacia/inserir.php",
-        success:function(resul){
-            if(resul=="sucesso"){
-                $('#msg_venda').html('<div class="alert alert-success" role="alert"> <strong>Sucesso!</strong> Pagamento efetuado com sucesso.RESULTADO'+resul+'</div>').show(300).delay(5000).hide(300); 
-            }else{
-                console.log(resul);
-                $('#msg_venda').html('<div class="alert alert-warning" role="alert"> <strong>Problema!</strong> Ocorreu um erro ao fazer o Pagamento RESULTADO:'+resul+'</div>').show(300).delay(5000).hide(300);
-                console.log(troco);
-            }
-        },
-        error:function(resul){
-            console.log(resul);
+        if(valor_recebido<= 0){
+            $('#valor_recebido').css({"border-color" : "#F00", "padding": "2px"}).attr("placeholder", "É o brigatório");
+        }else{
+            $.ajax({
+                type: "POST",
+                data:{codproduto:codproduto, valor_factura:resultado_valor_total, desconto:desconto, formapagamento:formapagamento, valor_recebido:valor_recebido, total:resultado_valor_total, idcliente:cliente_compra, q:q, troco:troco},
+                url: "../Model/Admin/GestaoFarmacia/inserir.php",
+                success:function(resul){
+                    if(resul=="sucesso"){
+                        $('#msg_venda').html('<div class="alert alert-success" role="alert"> <strong>Sucesso!</strong> Pagamento efetuado com sucesso.RESULTADO'+resul+'</div>').show(300).delay(5000).hide(300); 
+                    }else{
+                        console.log(resul);
+                        $('#msg_venda').html('<div class="alert alert-warning" role="alert"> <strong>Problema!</strong> Ocorreu um erro ao fazer o Pagamento RESULTADO:'+resul+'</div>').show(300).delay(5000).hide(300);
+                        console.log(troco);
+                    }
+                },
+                error:function(resul){
+                    console.log(resul);
+                }
+            });
         }
-    });
+    
 
 });
 }
@@ -72,7 +76,7 @@ function Desconto(preco_produto, porcentagem){
 }
 function Carcular_porcentagem(){
     
-        $(this).val();
+        //$(this).val();
     
 }
 function Adicionar_Produto(){  
@@ -110,7 +114,7 @@ function selecionar_producto(medicamento){
 
                 }, 
                 success:function(resultado){
-                    if(resultado=="[]" || resultado.legth ==0){
+                    if(resultado=="[]" || resultado.length ==0){
                         $('#preco').val("0,00");
                     }else{
                     var resultadoObj= JSON.parse(resultado);
@@ -125,7 +129,4 @@ function selecionar_producto(medicamento){
 
                 }
             });
-
-
-
 }
