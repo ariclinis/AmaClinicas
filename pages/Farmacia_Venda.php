@@ -136,14 +136,14 @@
                                 <div class="tab-pane" id="Regras">
                                 <div class="help-block col-md-6 col-lg-6">
                                 <label>Codigo</label>
-                                <select class="form-control codproduto" name="cod_produti" id="cod_produti">
+                                <select class="form-control codproduto" name="cod_produto" id="cod_produto">
                                     <option ></option>
                                 </select>
                                 </div>
                                         
                                 <div class="help-block col-md-6 col-lg-6">
                                 <label>Produto</label>
-                                <select class="form-control produtos" name="produto" id="produto">
+                                <select class="form-control produtos" name="descricao_produto" id="descricao_produto">
 
                                 </select>
                                 </div>
@@ -214,16 +214,13 @@
                                 </select>
                                 </div>
                                 <div class="help-block col-md-6 col-lg-6">
-                                <label>Desconto</label>
-                                <input class="form-control col-md-4 col-lg-4" type="text" name="" id="" placeholder="0,00">
+                                <label>Desconto / porcentagem(%)</label>
+                                <input class="form-control col-md-4 col-lg-4" type="text" name="desconto_venda" id="desconto_venda" placeholder="0%">
                                 </div>
                                 <div class="help-block col-md-6 col-lg-6">
-                                <label>Valor Desconto</label>
-                                <input class="form-control col-md-4 col-lg-4" value="0" type="text" name="desc" id="desc" placeholder="0,00">
+                                <label>Valor Desconto/ AKZ</label>
+                                <input class="form-control col-md-4 col-lg-4" value="0" type="text" name="valor_desconto" id="valor_desconto" placeholder="0,00">
                                 </div>   
-                                
-                                
-                                
                                 <div class="help-block col-md-6 col-lg-6"><p></p>
                                 <label>Valor Recebido</label>
                                 <input class="form-control col-md-4 col-lg-4" name="valor_recebido" id="valor_recebido" placeholder="0,00">
@@ -288,13 +285,30 @@
     ListarProduto_codigo();
     Adicionar_Produto();
     inserir_venda();
-    $("#produto").on('change', function(){
+    
+    $("#valor_desconto").blur(function(){
+        var valor = this.value;
+        var preco = $('#valortotal').val();
+        var p= (100 *valor)/preco;
+        
+        if(preco>0){
+            if(p<valor){
+                $('#desconto_venda').val(p.toFixed(2).replace('.',','));
+            }else{
+                alert('O desconto não pode ser superior ao valor da compra');
+                this.val('0');
+            }
+            
+        }
+        
+    });
+    $("#descricao_produto").on('change', function(){
         var medicamento = this.value;
             //console.log(medicamento);
             //console.log($('#cod_produti').filter('[value='+medicamento+']').change());
           selecionar_producto(medicamento);
     });
-    $("#cod_produti").on('change', function(){
+    $("#cod_produto").on('change', function(){
         var medicamento = this.value;
         selecionar_producto(medicamento);
 	});

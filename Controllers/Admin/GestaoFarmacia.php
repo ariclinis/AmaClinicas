@@ -15,10 +15,11 @@ class GestaoFarmacia {
     private $query_select="SELECT * FROM `tbl_clientes`";
     private $query_produtos="SELECT * FROM `tbl_produtos`";
     private $query_dados_producto="SELECT * FROM `tbl_entrada_produtos` WHERE id_produto =? ORDER BY data_registo DESC LIMIT 1";
+    private $query_selecionar_quantidade_produto ="SELECT * FROM `tbl_entrada_produtos` WHERE `id_produto`= ?";
+    private $query_descontar_quantidade_produto ="UPDATE `tbl_entrada_produtos` SET `qtdstock`= ? WHERE `id_produto`= ?";
+    private $insert_factura="INSERT INTO `tbl_vendas`(`n_factura`, `cod_cliente`, `qtd_compra`, `valor_factura`, `total`, `descontos`, `valor_recebido`, `troco`, `forma_pagamento`, `data_venda`, `id_utilizador`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
     
-    private $insert_factura="INSERT INTO `tbl_vendas`(`n_factura`, `cod_cliente`, `qtd_compra`, `valor_factura`, `total`, `descontos`, `valor_recebido`, `forma_pagamento`, `data_venda`, `id_utilizador`) VALUES (?,?,?,?,?,?,?,?,?,?)";
-    
-    Private $insert_produtos="INSERT INTO `tbl_venda_produtos`(`idvenda`, `Idproduto`, `data_registo`) VALUES (?,?,?)";
+    Private $insert_produtos="INSERT INTO `tbl_venda_produtos`(`idvenda`, `Idproduto`, `data_registo`, `qtd_compra`) VALUES (?,?,?,?)";
     
     private $pesquisa;
     private $n_factura;
@@ -31,7 +32,7 @@ class GestaoFarmacia {
     private $forma_pagamento;
     private $data_venda;
     private $id_utilizador;
-    
+    private $troco;
      //insert de produtos
     private $idvenda;
     private $idproduto;
@@ -161,17 +162,37 @@ class GestaoFarmacia {
         return $this;
     }
         
+        /**
+     * Get the value of troco
+     */ 
+    public function getTroco()
+    {
+        return $this->troco;
+    }
+
+    /**
+     * Set the value of troco
+     *
+     * @return  self
+     */ 
+    public function setTroco($troco)
+    {
+        $this->troco = $troco;
+
+        return $this;
+    }
 public function inserir_venda(PDO $con) {
         $stmt = $con->prepare($this->insert_factura);
         $stmt->execute(
             array(
             $this->getN_factura(),
             $this->getCod_cliente(),
-            $this->getQtd_compra(),
+            intval($this->getQtd_compra()),
             $this->getValor_factura(),
             $this->getTotal(),
             $this->getDescontos(),
             $this->getValor_recebido(),
+            $this->getTroco(),
             $this->getForma_pagamento(),
             $this->getData_venda(),
             $this->getId_utilizador()
@@ -186,13 +207,12 @@ public function inserir_venda_produtos(PDO $con) {
             array(
             $this->getIdvenda(),
             $this->getIdproduto(),
-            $this->getDataregisto()
+            date('m-d-Y'),
+            $this->getQtd_compra()
         )
 );
      return $con->lastInsertId();
     }
-
-
 public function listagem_clientes(PDO $con){
     	$executeQuery = $con->prepare($this->query_select);
         $executeQuery->execute();
@@ -222,5 +242,7 @@ public function listagem_produtos(PDO $con){
         }
         return json_encode($resultados) ;
     }
+
+
 
 }
