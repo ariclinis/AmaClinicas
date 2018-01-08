@@ -182,7 +182,7 @@ class GestaoFarmacia {
         return $this;
     }
 //--------------------------- INSERTES -------------------------//
-public function inserir_venda(PDO $con) {
+public function inserir_venda(PDO $con){
         $stmt = $con->prepare("INSERT INTO `tbl_vendas`(`n_factura`, `cod_cliente`, `valor_factura`, `total`, `descontos`, `valor_recebido`, `troco`, `forma_pagamento`, `data_venda`, `id_utilizador`) VALUES (?,?,?,?,?,?,?,?,?,?)");
         $stmt->execute(
             array(
